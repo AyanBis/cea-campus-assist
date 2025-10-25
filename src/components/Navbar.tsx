@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, GraduationCap } from "lucide-react";
+import { Menu, X, GraduationCap, Moon, Sun } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useTheme } from "@/components/ThemeProvider";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   const navItems = [
     { name: "Home", path: "/" },
@@ -41,6 +43,21 @@ const Navbar = () => {
                 </Button>
               </Link>
             ))}
+            
+            {/* Theme Toggle */}
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={toggleTheme}
+              className="ml-2 rounded-full hover:bg-primary/10 transition-all group"
+              aria-label="Toggle theme"
+            >
+              {theme === "light" ? (
+                <Moon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+              ) : (
+                <Sun className="w-5 h-5 text-muted-foreground group-hover:text-accent transition-colors" />
+              )}
+            </Button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -69,6 +86,25 @@ const Navbar = () => {
                 </Button>
               </Link>
             ))}
+            
+            {/* Mobile Theme Toggle */}
+            <Button
+              variant="ghost"
+              onClick={toggleTheme}
+              className="w-full justify-start text-sm font-medium"
+            >
+              {theme === "light" ? (
+                <>
+                  <Moon className="w-5 h-5 mr-2" />
+                  Dark Mode
+                </>
+              ) : (
+                <>
+                  <Sun className="w-5 h-5 mr-2" />
+                  Light Mode
+                </>
+              )}
+            </Button>
           </div>
         )}
       </div>
